@@ -2,11 +2,18 @@ package com.example.lemgo.myrobot;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.turing.androidsdk.InitListener;
+import com.turing.androidsdk.SDKInit;
+import com.turing.androidsdk.SDKInitBuilder;
+import com.turing.androidsdk.TuringApiManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +27,32 @@ public class MainActivity extends Activity {
     private Button send;
     private MsgAdapter adapter;
     private List<Msg> msgList  = new ArrayList<Msg>();
+
+    private static final String KEY = "7b2fc8d27a294814b86b93752c99c9e3";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.avtivity_main);
         initMsgs();
+
+        SDKInitBuilder builder = new SDKInitBuilder(MyApplication.getContext()).setTuringKey(KEY).setUniqueId("18796015450");
+        SDKInit init = new SDKInit();
+        init.init(builder, new InitListener() {
+            @Override
+            public void onComplete() {
+               TuringApiManager m = new TuringApiManager(MainActivity.this);
+
+
+            }
+
+            @Override
+            public void onFail(String s) {
+                Log.d("msg22","chucuole");
+
+            }
+        });
 
         adapter =new MsgAdapter(MainActivity.this,R.layout.msg_item,msgList);
         editText  = (EditText) findViewById(R.id.input_text);
