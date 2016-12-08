@@ -6,6 +6,7 @@
     android:padding="10dp"
     android:weightSum="1">
     <LinearLayout
+        android:id="@+id/left_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -14,7 +15,6 @@
             android:layout_height="60dp"
             android:src="@mipmap/girl"/>
         <LinearLayout
-        android:id="@+id/left_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
@@ -28,8 +28,8 @@
             android:layout_margin="10dp"
             android:textColor="#050505"
             android:textSize="18sp"/>
+        </LinearLayout>
     </LinearLayout>
-         </LinearLayout>
 
     <LinearLayout
         android:id="@+id/right_layout"
