@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:background="@drawable/msg"
+        android:background="@drawable/cha_re"
        >
         <TextView
             android:id="@+id/left_msg"
@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:textColor="#fff"/>
+            android:textColor="#050505"
+            android:textSize="18sp"/>
 
     </LinearLayout>
 
@@ -27,13 +28,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:background="@drawable/msg_send">
+        android:background="@drawable/chatto_bg_focused">
         <TextView
             android:id="@+id/right_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:textSize="18sp"/>
 
     </LinearLayout>
 
