@@ -107,7 +107,7 @@ public class MainActivity extends Activity {
     };
 
     private void initMsgs() {
-        Msg msg1 = new Msg("主人你好，有什么需要帮助的吗？",Msg.TYPE_RECEIVED);
+        Msg msg1 = new Msg("你好，有什么需要帮助的吗？",Msg.TYPE_RECEIVED);
         msgList.add(msg1);
     }
 
