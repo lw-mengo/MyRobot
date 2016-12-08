@@ -47,7 +47,17 @@ public class MainActivity extends Activity {
         initMsgs();
 
         //初始化机器人
-
+        SDKInitBuilder builder = new SDKInitBuilder(MainActivity.this).setTuringKey(KEY).setSecret(SECRET).setUniqueId(UNIQUEID);//这三个参数必须要
+        SDKInit.init(builder, new InitListener() {
+            @Override
+            public void onComplete() {
+                m = new TuringApiManager(MainActivity.this);
+            }
+            @Override
+            public void onFail(String s) {
+                Log.d("msg22",s);
+            }
+        });
         adapter =new MsgAdapter(MainActivity.this,R.layout.msg_item,msgList);
         editText  = (EditText) findViewById(R.id.input_text);
         send  = (Button) findViewById(R.id.send);
@@ -56,28 +66,15 @@ public class MainActivity extends Activity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final    String  content = editText.getText().toString();
-                SDKInitBuilder builder = new SDKInitBuilder(MainActivity.this).setTuringKey(KEY).setSecret(SECRET).setUniqueId(UNIQUEID);//这三个参数必须要
-                SDKInit.init(builder, new InitListener() {
-                    @Override
-                    public void onComplete() {
-                        m = new TuringApiManager(MainActivity.this);
-                        m.setHttpListener(httpConnectionListener);
-
-                        m.requestTuringAPI(content);//传递消息过去
-                    }
-                    @Override
-                    public void onFail(String s) {
-                        Log.d("msg22",s);
-                    }
-                });
+                String content = editText.getText().toString();
+                m.setHttpListener(httpConnectionListener);
+                m.requestTuringAPI(content);//传递消息过去
                 if(!"".equals(content)){
                     Msg msg =new Msg(content,Msg.TYPE_SEND);
                     msgList.add(msg);
                     adapter.notifyDataSetChanged();//   当有新消息时，刷新listview的显示
                     msgListView.setSelection(msgList.size());//将listview定位到最后一行
                     editText.setText("");//清空输入框
-
                 }
             }
         });
