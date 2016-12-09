@@ -15,6 +15,6 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
--keep class com.baidu.android.**{*;}
--keep class com.baidu.voicerecognition.android.**{*;}
+-keep com.baidu.android.**{*;}
+-keep com.baidu.voicerecognition.android.**{*;}
 -keep class com.turing.androidsdk.**{*;}

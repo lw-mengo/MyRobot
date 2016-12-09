@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
     private EditText editText;
     private Button send;
     private MsgAdapter adapter;
-    private List<Msg> msgList  = new ArrayList<Msg>();
+    private List<Msg> msgList = new ArrayList<Msg>();
     private TuringApiManager m = null;
     private static final String KEY = "7b2fc8d27a294814b86b93752c99c9e3";
     private static final String SECRET = "f56ca31f6cb0c8e4";
@@ -53,14 +53,15 @@ public class MainActivity extends Activity {
             public void onComplete() {
                 m = new TuringApiManager(MainActivity.this);
             }
+
             @Override
             public void onFail(String s) {
-                Log.d("msg22",s);
+                Log.d("msg22", s);
             }
         });
-        adapter =new MsgAdapter(MainActivity.this,R.layout.msg_item,msgList);
-        editText  = (EditText) findViewById(R.id.input_text);
-        send  = (Button) findViewById(R.id.send);
+        adapter = new MsgAdapter(MainActivity.this, R.layout.msg_item, msgList);
+        editText = (EditText) findViewById(R.id.input_text);
+        send = (Button) findViewById(R.id.send);
         msgListView = (ListView) findViewById(R.id.msg_list_view);
         msgListView.setAdapter(adapter);
         send.setOnClickListener(new View.OnClickListener() {
@@ -69,8 +70,8 @@ public class MainActivity extends Activity {
                 String content = editText.getText().toString();
                 m.setHttpListener(httpConnectionListener);
                 m.requestTuringAPI(content);//传递消息过去
-                if(!"".equals(content)){
-                    Msg msg =new Msg(content,Msg.TYPE_SEND);
+                if (!"".equals(content)) {
+                    Msg msg = new Msg(content, Msg.TYPE_SEND);
                     msgList.add(msg);
                     adapter.notifyDataSetChanged();//   当有新消息时，刷新listview的显示
                     msgListView.setSelection(msgList.size());//将listview定位到最后一行
@@ -78,24 +79,24 @@ public class MainActivity extends Activity {
                 }
             }
         });
-
     }
+
     HttpConnectionListener httpConnectionListener = new HttpConnectionListener() {
         @Override
         public void onError(ErrorMessage errorMessage) {
-            Log.d("msg22",errorMessage.getMessage());
+            Log.d("msg22", errorMessage.getMessage());
         }
 
         @Override
         public void onSuccess(RequestResult requestResult) {
-            if(requestResult!=null){
+            if (requestResult != null) {
                 try {
                     JSONObject jsonObject = new JSONObject(requestResult.getContent().toString());
-                    if(jsonObject.has("text")){
-                        Log.d("msg223",jsonObject.getString("text"));
+                    if (jsonObject.has("text")) {
+                        Log.d("msg223", jsonObject.getString("text"));
                     }
                     String content = jsonObject.getString("text");
-                    Msg msg =new Msg(content,Msg.TYPE_RECEIVED);
+                    Msg msg = new Msg(content, Msg.TYPE_RECEIVED);
                     msgList.add(msg);
                     adapter.notifyDataSetChanged();
                     msgListView.setSelection(msgList.size());
@@ -107,7 +108,7 @@ public class MainActivity extends Activity {
     };
 
     private void initMsgs() {
-        Msg msg1 = new Msg("你好，有什么需要帮助的吗？",Msg.TYPE_RECEIVED);
+        Msg msg1 = new Msg("你好，有什么需要帮助的吗？", Msg.TYPE_RECEIVED);
         msgList.add(msg1);
     }
 
